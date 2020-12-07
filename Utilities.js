@@ -7,5 +7,13 @@ function p(e){
 	console.log(e);
 }
 
+function read_data(path, splitter='\n'){
+	fs.readFile(path, 'utf8' , (err, data) => {
+		if (err) {
+			console.error(err)
+			return
+		}
+	  	seats = data.split(splitter)
+  	}
 
 module.exports = {p};
