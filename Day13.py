@@ -22,3 +22,26 @@ for index, time in times[1:]:
         soln += increment
     increment *= time
 print(soln)
+
+# Part 2 with CRT
+
+from itertools import count
+from functools import reduce
+
+def inv_mod(Ni, b):
+    # Solve: Ni * x = 1 (mod b)
+    for i in count(1):
+        if (Ni*i) % b == 1:
+            return i
+
+def crt(mods, remainders):
+    N = reduce(lambda x, y: x * y, mods)
+    ans = 0
+    for b, n in zip(mods, remainders):
+        Ni = N//b
+        inv = inv_mod(Ni, b)
+        ans += n * inv * Ni
+    return ans % N
+
+mods, remainders = zip(*[(time, time-i) for i, time in times])
+print(crt(mods, remainders))
